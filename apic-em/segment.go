@@ -5,12 +5,6 @@ const segmentBasePath = "v1"
 // SegmentService is an interface with the Segment API
 type SegmentService service
 
-// GetSegmentInfoQueryParams is ...
-type GetSegmentInfoQueryParams struct {
-	Type      string `url:"type,omitempty"`
-	PolicyTag string `url:"policyTag,omitempty"`
-}
-
 // NetworkDeviceBrief is ...
 type NetworkDeviceBrief struct {
 	ID       string `json:"id,omitempty"`
@@ -29,12 +23,19 @@ type SegmentResult struct {
 	Response []SegmentDto `json:"response,omitempty"`
 }
 
+// GetSegmentInfoQueryParams is ...
+type GetSegmentInfoQueryParams struct {
+	Type      string `url:"type,omitempty"`      // Type of segment
+	PolicyTag string `url:"policyTag,omitempty"` // Policy tag
+}
+
 // GetSegmentInfo is ...
 // Gets list of segment info based on policyTag
 //
-//  * @param type_ Type of segment
-//  * @param policyTag Policy tag
-//  * @return *SegmentResult
+//  * @param queryParams
+//
+//
+// * @return *SegmentResult
 func (s *SegmentService) GetSegmentInfo(queryParams *GetSegmentInfoQueryParams) (*SegmentResult, *Response, error) {
 
 	path := segmentBasePath + "/segment"
@@ -42,7 +43,7 @@ func (s *SegmentService) GetSegmentInfo(queryParams *GetSegmentInfoQueryParams) 
 	if err != nil {
 		return nil, nil, err
 	}
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}

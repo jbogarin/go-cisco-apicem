@@ -3,7 +3,6 @@ package apicem
 import (
 	"fmt"
 	"strings"
-	"time"
 )
 
 const networkDeviceBasePath = "v1"
@@ -11,31 +10,11 @@ const networkDeviceBasePath = "v1"
 // NetworkDeviceService is an interface with the Networkdevice API
 type NetworkDeviceService service
 
-// CountResult is ...
-type CountResult struct {
-	Version  string `json:"version,omitempty"`
-	Response int32  `json:"response,omitempty"`
-}
-
-// Date is ...
-type Date struct {
-	Time    int64 `json:"time,omitempty"`
-	Hours   int32 `json:"hours,omitempty"`
-	Minutes int32 `json:"minutes,omitempty"`
-	Seconds int32 `json:"seconds,omitempty"`
-	Year    int32 `json:"year,omitempty"`
-	Month   int32 `json:"month,omitempty"`
-	Date    int32 `json:"date,omitempty"`
-}
-
 // NetworkDeviceBriefNio is ...
 type NetworkDeviceBriefNio struct {
-	// Unique identifier of the network device
-	ID string `json:"id,omitempty"`
-	// Role of device as access, distribution, border router, core
-	Role string `json:"role,omitempty"`
-	// Role source as manual / auto
-	RoleSource string `json:"roleSource,omitempty"`
+	ID         string `json:"id,omitempty"`         // Unique identifier of the network device
+	Role       string `json:"role,omitempty"`       // Role of device as access, distribution, border router, core
+	RoleSource string `json:"roleSource,omitempty"` // Role source as manual / auto
 }
 
 // NetworkDeviceBriefNioResult is ...
@@ -44,28 +23,63 @@ type NetworkDeviceBriefNioResult struct {
 	Response NetworkDeviceBriefNio `json:"response,omitempty"`
 }
 
+// NetworkDeviceDto is ...
+type NetworkDeviceDto struct {
+	Family                    string `json:"family,omitempty"`                // Family of device as switch, router, wireless lan controller, accesspoints
+	Location                  string `json:"location,omitempty"`              // Location ID that is associated with the device
+	Type                      string `json:"type,omitempty"`                  // Type of device as switch, router, wireless lan controller, accesspoints
+	SerialNumber              string `json:"serialNumber,omitempty"`          // Serial number of device
+	Role                      string `json:"role,omitempty"`                  // Role of device as access, distribution, border router, core
+	MacAddress                string `json:"macAddress,omitempty"`            // MAC address of device
+	UpTime                    string `json:"upTime,omitempty"`                // Time that shows for how long the device has been up
+	SoftwareVersion           string `json:"softwareVersion,omitempty"`       // Software version on the device
+	InventoryStatusDetail     string `json:"inventoryStatusDetail,omitempty"` // Status detail of inventory sync
+	LastUpdateTime            int    `json:"lastUpdateTime,omitempty"`
+	LocationName              string `json:"locationName,omitempty"`              // Name of the associated location
+	LastUpdated               string `json:"lastUpdated,omitempty"`               // Time when the network device info last got updated
+	TagCount                  string `json:"tagCount,omitempty"`                  // Number of tags associated with the device
+	Hostname                  string `json:"hostname,omitempty"`                  // Device name
+	ReachabilityFailureReason string `json:"reachabilityFailureReason,omitempty"` // Failure reason for unreachable devices
+	ReachabilityStatus        string `json:"reachabilityStatus,omitempty"`        // Device reachability status as Reachable / Unreachable
+	RoleSource                string `json:"roleSource,omitempty"`                // Role source as manual / auto
+	Series                    string `json:"series,omitempty"`                    // Device series
+	SnmpContact               string `json:"snmpContact,omitempty"`               // SNMP contact on device
+	SnmpLocation              string `json:"snmpLocation,omitempty"`              // SNMP location on device
+	TunnelUDPPort             string `json:"tunnelUdpPort,omitempty"`             // Mobility protocol port is stored as tunneludpport for WLC
+	ApManagerInterfaceIP      string `json:"apManagerInterfaceIp,omitempty"`      // IP address of WLC on AP manager interface
+	BootDateTime              string `json:"bootDateTime,omitempty"`              // Device boot time
+	CollectionStatus          string `json:"collectionStatus,omitempty"`          // Collection status as Synchronizing, Could not synchronize, Not manageable, Managed, Partial Collection Failure, Incomplete, Unreachable, Wrong credential, Reachable, In Progress
+	InterfaceCount            string `json:"interfaceCount,omitempty"`            // Number of interfaces on the device
+	LineCardCount             string `json:"lineCardCount,omitempty"`             // Number of linecards on the device
+	LineCardID                string `json:"lineCardId,omitempty"`                // IDs of linecards of the device
+	ManagementIPAddress       string `json:"managementIpAddress,omitempty"`       // IP address of the device
+	MemorySize                string `json:"memorySize,omitempty"`                // Processor memory size
+	PlatformID                string `json:"platformId,omitempty"`                // Platform ID of device
+	InstanceUUID              string `json:"instanceUuid,omitempty"`
+	ID                        string `json:"id,omitempty"`
+}
+
 // NetworkDeviceListResult is ...
 type NetworkDeviceListResult struct {
-	Version  string              `json:"version,omitempty"`
-	Response []*NetworkDeviceDto `json:"response,omitempty"`
+	Version  string             `json:"version,omitempty"`
+	Response []NetworkDeviceDto `json:"response,omitempty"`
 }
 
 // NetworkDeviceManagementInfo is ...
 type NetworkDeviceManagementInfo struct {
-	// Family of device as switch, router, wireless lan controller, accesspoints
-	Family string `json:"family,omitempty"`
-	// Unique identifier of device
-	ID string `json:"id,omitempty"`
-	// Type of device as switch, router, wireless lan controller, accesspoints
-	Type string `json:"type,omitempty"`
-	// Device name
-	Hostname string `json:"hostname,omitempty"`
-	// Device series
-	Series string `json:"series,omitempty"`
-	// IP address of the device
-	ManagementIPAddress string `json:"managementIpAddress,omitempty"`
-	// Credential info
-	Credentials string `json:"credentials,omitempty"`
+	Family              string `json:"family,omitempty"`              // Family of device as switch, router, wireless lan controller, accesspoints
+	ID                  string `json:"id,omitempty"`                  // Unique identifier of device
+	Type                string `json:"type,omitempty"`                // Type of device as switch, router, wireless lan controller, accesspoints
+	Hostname            string `json:"hostname,omitempty"`            // Device name
+	Series              string `json:"series,omitempty"`              // Device series
+	ManagementIPAddress string `json:"managementIpAddress,omitempty"` // IP address of the device
+	Credentials         string `json:"credentials,omitempty"`         // Credential info
+}
+
+// NetworkDeviceResult is ...
+type NetworkDeviceResult struct {
+	Version  string           `json:"version,omitempty"`
+	Response NetworkDeviceDto `json:"response,omitempty"`
 }
 
 // NetworkManagementInfo is ...
@@ -80,202 +94,31 @@ type NetworkManagementInfoResult struct {
 	Response NetworkManagementInfo `json:"response,omitempty"`
 }
 
-// NetworkDeviceDto is ...
-type NetworkDeviceDto struct {
-	// Family of device as switch, router, wireless lan controller, accesspoints
-	Family string `json:"family,omitempty"`
-	// Location ID that is associated with the device
-	Location string `json:"location,omitempty"`
-	// Type of device as switch, router, wireless lan controller, accesspoints
-	Type string `json:"type,omitempty"`
-	// Serial number of device
-	SerialNumber string `json:"serialNumber,omitempty"`
-	// Role of device as access, distribution, border router, core
-	Role string `json:"role,omitempty"`
-	// MAC address of device
-	MacAddress string `json:"macAddress,omitempty"`
-	// Time that shows for how long the device has been up
-	UpTime string `json:"upTime,omitempty"`
-	// Software version on the device
-	SoftwareVersion string `json:"softwareVersion,omitempty"`
-	// Status detail of inventory sync
-	InventoryStatusDetail string `json:"inventoryStatusDetail,omitempty"`
-	LastUpdateTime        int    `json:"lastUpdateTime,omitempty"`
-	// Name of the associated location
-	LocationName string `json:"locationName,omitempty"`
-	// Time when the network device info last got updated
-	LastUpdated string `json:"lastUpdated,omitempty"`
-	// Number of tags associated with the device
-	TagCount string `json:"tagCount,omitempty"`
-	// Device name
-	Hostname string `json:"hostname,omitempty"`
-	// Failure reason for unreachable devices
-	ReachabilityFailureReason string `json:"reachabilityFailureReason,omitempty"`
-	// Device reachability status as Reachable / Unreachable
-	ReachabilityStatus string `json:"reachabilityStatus,omitempty"`
-	// Role source as manual / auto
-	RoleSource string `json:"roleSource,omitempty"`
-	// Device series
-	Series string `json:"series,omitempty"`
-	// SNMP contact on device
-	SnmpContact string `json:"snmpContact,omitempty"`
-	// SNMP location on device
-	SnmpLocation string `json:"snmpLocation,omitempty"`
-	// Mobility protocol port is stored as tunneludpport for WLC
-	TunnelUDPPort string `json:"tunnelUdpPort,omitempty"`
-	// IP address of WLC on AP manager interface
-	APManagerInterfaceIP string `json:"apManagerInterfaceIp,omitempty"`
-	// Device boot time
-	BootDateTime string `json:"bootDateTime,omitempty"`
-	// Collection status as Synchronizing, Could not synchronize, Not manageable, Managed, Partial Collection Failure, Incomplete, Unreachable, Wrong credential, Reachable, In Progress
-	CollectionStatus string `json:"collectionStatus,omitempty"`
-	// Number of interfaces on the device
-	InterfaceCount string `json:"interfaceCount,omitempty"`
-	// Number of linecards on the device
-	LineCardCount string `json:"lineCardCount,omitempty"`
-	// IDs of linecards of the device
-	LineCardID string `json:"lineCardId,omitempty"`
-	// IP address of the device
-	ManagementIPAddress string `json:"managementIpAddress,omitempty"`
-	// Processor memory size
-	MemorySize string `json:"memorySize,omitempty"`
-	// Platform ID of device
-	PlatformID   string `json:"platformId,omitempty"`
-	InstanceUUID string `json:"instanceUuid,omitempty"`
-	ID           string `json:"id,omitempty"`
-}
-
-// NetworkDeviceNio is ...
-type NetworkDeviceNio struct {
-	// Ingress queue config on device
-	IngressQueueConfig string `json:"ingressQueueConfig,omitempty"`
-	// Authentication model Id on device
-	AuthModelID string `json:"authModelId,omitempty"`
-	// Identifier of the duplicate ip of the same device discovered
-	DuplicateDeviceID string `json:"duplicateDeviceId,omitempty"`
-	// Connected WLC device for AP
-	AnchorWlcForAp string `json:"anchorWlcForAp,omitempty"`
-	// Collection status of AP devices
-	WlcApDeviceStatus string `json:"wlcApDeviceStatus,omitempty"`
-	// Type of device as switch, router, wireless lan controller, accesspoints
-	Type string `json:"type,omitempty"`
-	// Location ID that is associated with the device
-	Location string `json:"location,omitempty"`
-	// Serial number of device
-	SerialNumber string `json:"serialNumber,omitempty"`
-	// Role of device as access, distribution, border router, core
-	Role string `json:"role,omitempty"`
-	// MAC address of device
-	MacAddress string `json:"macAddress,omitempty"`
-	// Time that shows for how long the device has been up
-	UpTime string `json:"upTime,omitempty"`
-	// Software version on the device
-	SoftwareVersion string `json:"softwareVersion,omitempty"`
-	// Name of the associated location
-	LocationName string `json:"locationName,omitempty"`
-	// Unique identifier of network device
-	ID string `json:"id,omitempty"`
-	// Image details on the device
-	ImageName string `json:"imageName,omitempty"`
-	// Time when the network device info last got updated
-	LastUpdated string `json:"lastUpdated,omitempty"`
-	// Vendor information of the device
-	Vendor string `json:"vendor,omitempty"`
-	// Range of ports on device
-	PortRange string `json:"portRange,omitempty"`
-	// Number of tags associated with the device
-	TagCount int32 `json:"tagCount,omitempty"`
-	// Device name
-	Hostname string `json:"hostname,omitempty"`
-	// Tag ID that is associated with the device
-	Tag string `json:"tag,omitempty"`
-	// Failure reason for unreachable devices
-	ReachabilityFailureReason string `json:"reachabilityFailureReason,omitempty"`
-	// Device reachability status as Reachable / Unreachable
-	ReachabilityStatus string `json:"reachabilityStatus,omitempty"`
-	// Role source as manual / auto
-	RoleSource string `json:"roleSource,omitempty"`
-	// SNMP contact on device
-	SnmpContact string `json:"snmpContact,omitempty"`
-	// SNMP location on device
-	SnmpLocation string `json:"snmpLocation,omitempty"`
-	// Frequency in which interface info gets updated
-	AvgUpdateFrequency int32 `json:"avgUpdateFrequency,omitempty"`
-	// Number of time network-device info got updated
-	NumUpdates int32 `json:"numUpdates,omitempty"`
-	// Device boot time
-	BootDateTime time.Time `json:"bootDateTime,omitempty"`
-	// Family of device as switch, router, wireless lan controller, accesspoints
-	Family string `json:"family,omitempty"`
-	// Number of interfaces on the device
-	InterfaceCount string `json:"interfaceCount,omitempty"`
-	// Number of linecards on the device
-	LineCardCount string `json:"lineCardCount,omitempty"`
-	// IDs of linecards of the device
-	LineCardID string `json:"lineCardId,omitempty"`
-	// IP address of the device
-	ManagementIPAddress string `json:"managementIpAddress,omitempty"`
-	// Processor memory size
-	MemorySize string `json:"memorySize,omitempty"`
-	// Platform ID of device
-	PlatformID string `json:"platformId,omitempty"`
-	// Qos status on device
-	QosStatus string `json:"qosStatus,omitempty"`
-}
-
-// NetworkDeviceResult is ...
-type NetworkDeviceResult struct {
-	Version  string           `json:"version,omitempty"`
-	Response NetworkDeviceDto `json:"response,omitempty"`
-}
-
 // SiteManagementInfo is ...
 type SiteManagementInfo struct {
-	// Description of site
-	Description string `json:"description,omitempty"`
-	// Name of site
-	Name string `json:"name,omitempty"`
-	// Location of site
-	Location string `json:"location,omitempty"`
-	// Properties of site
-	Properties string `json:"properties,omitempty"`
-	// Unique identifier of site
-	ID string `json:"id,omitempty"`
-	// Unique identifier of devices that are associated with site
-	DeviceIds []string `json:"deviceIds,omitempty"`
-}
-
-// TaskIDResponse is ...
-type TaskIDResponse struct {
-	URL    string `json:"url,omitempty"`
-	TaskID TaskID `json:"taskId,omitempty"`
-}
-
-// TaskID is ...
-type TaskID struct {
-}
-
-// TaskIDResult is ...
-type TaskIDResult struct {
-	Version  string         `json:"version,omitempty"`
-	Response TaskIDResponse `json:"response,omitempty"`
+	Description string   `json:"description,omitempty"` // Description of site
+	Name        string   `json:"name,omitempty"`        // Name of site
+	Location    string   `json:"location,omitempty"`    // Location of site
+	Properties  string   `json:"properties,omitempty"`  // Properties of site
+	ID          string   `json:"id,omitempty"`          // Unique identifier of site
+	DeviceIDs   []string `json:"deviceIds,omitempty"`   // Unique identifier of devices that are associated with site
 }
 
 // AddNetworkDeviceLocation is ...
 // Associates the given location to the given device
 //
+//
 //  * @param scope Authorization Scope for RBAC
 //  * @param networkDeviceNIO networkDeviceNIO
-//  * @return *TaskIDResult
-func (s *NetworkDeviceService) AddNetworkDeviceLocation(scope string, networkDeviceNIO *NetworkDeviceNio) (*TaskIDResult, *Response, error) {
+// * @return *TaskIDResult
+func (s *NetworkDeviceService) AddNetworkDeviceLocation(scope string, networkDeviceNIO NetworkDeviceNio) (*TaskIDResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/location"
-
-	req, err := s.client.NewRequest("Post", path, networkDeviceNIO)
+	req, err := s.client.NewRequest("POST", path, networkDeviceNIO)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(TaskIDResult)
@@ -290,19 +133,19 @@ func (s *NetworkDeviceService) AddNetworkDeviceLocation(scope string, networkDev
 // DeleteDevicebyID is ...
 // Removes the network device for the given ID
 //
-//  * @param id Device ID
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *TaskIDResult
-func (s *NetworkDeviceService) DeleteDevicebyID(id *string, scope string) (*TaskIDResult, *Response, error) {
+//
+// * @return *TaskIDResult
+func (s *NetworkDeviceService) DeleteDevicebyID(id string, scope string) (*TaskIDResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
-
-	req, err := s.client.NewRequest("Delete", path, nil)
+	req, err := s.client.NewRequest("DELETE", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(TaskIDResult)
@@ -317,19 +160,19 @@ func (s *NetworkDeviceService) DeleteDevicebyID(id *string, scope string) (*Task
 // DeleteNetworkLocationByID is ...
 // Removes the association between device and location for the given device
 //
-//  * @param id Device ID
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *TaskIDResult
-func (s *NetworkDeviceService) DeleteNetworkLocationByID(id *string, scope string) (*TaskIDResult, *Response, error) {
+//
+// * @return *TaskIDResult
+func (s *NetworkDeviceService) DeleteNetworkLocationByID(id string, scope string) (*TaskIDResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/{id}/location"
 	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
-
-	req, err := s.client.NewRequest("Delete", path, nil)
+	req, err := s.client.NewRequest("DELETE", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(TaskIDResult)
@@ -344,17 +187,18 @@ func (s *NetworkDeviceService) DeleteNetworkLocationByID(id *string, scope strin
 // GetAllNetworkDevice is ...
 // Gets the list of network devices filtered using management IP address, mac address, hostname and location name
 //
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *Object
+//
+// * @return *string
 func (s *NetworkDeviceService) GetAllNetworkDevice(scope string) (*NetworkDeviceListResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device"
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceListResult)
@@ -369,19 +213,19 @@ func (s *NetworkDeviceService) GetAllNetworkDevice(scope string) (*NetworkDevice
 // GetNetworkDeviceBrief is ...
 // Gets brief network device info such as hostname, management IP address for the given device ID
 //
-//  * @param id Device ID
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceBriefNioResult
-func (s *NetworkDeviceService) GetNetworkDeviceBrief(id *string, scope string) (*NetworkDeviceBriefNioResult, *Response, error) {
+//
+// * @return *NetworkDeviceBriefNioResult
+func (s *NetworkDeviceService) GetNetworkDeviceBrief(id string, scope string) (*NetworkDeviceBriefNioResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/{id}/brief"
 	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceBriefNioResult)
@@ -396,19 +240,19 @@ func (s *NetworkDeviceService) GetNetworkDeviceBrief(id *string, scope string) (
 // GetNetworkDeviceByID is ...
 // Gets the network device for the given device ID
 //
-//  * @param id Device ID
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceResult
-func (s *NetworkDeviceService) GetNetworkDeviceByID(id *string, scope string) (*NetworkDeviceResult, *Response, error) {
+//
+// * @return *NetworkDeviceResult
+func (s *NetworkDeviceService) GetNetworkDeviceByID(id string, scope string) (*NetworkDeviceResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceResult)
@@ -423,19 +267,19 @@ func (s *NetworkDeviceService) GetNetworkDeviceByID(id *string, scope string) (*
 // GetNetworkDeviceByIP is ...
 // Gets the network device with the given IP address
 //
-//  * @param ipAddress Device IP address
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceResult
-func (s *NetworkDeviceService) GetNetworkDeviceByIP(ipAddress *string, scope string) (*NetworkDeviceResult, *Response, error) {
+//
+// * @return *NetworkDeviceResult
+func (s *NetworkDeviceService) GetNetworkDeviceByIP(ipAddress string, scope string) (*NetworkDeviceResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/ip-address/{ipAddress}"
 	path = strings.Replace(path, "{"+"ipAddress"+"}", fmt.Sprintf("%v", ipAddress), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceResult)
@@ -450,23 +294,21 @@ func (s *NetworkDeviceService) GetNetworkDeviceByIP(ipAddress *string, scope str
 // GetNetworkDeviceByLocationByRange is ...
 // Gets network devices associated with the given location in the given range
 //
-//  * @param locationID Location ID
-//  * @param startIndex Start index
-//  * @param recordsToReturn Number of records to return
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceListResult
-func (s *NetworkDeviceService) GetNetworkDeviceByLocationByRange(locationID *string, startIndex *int32, recordsToReturn *int32, scope string) (*NetworkDeviceListResult, *Response, error) {
+//
+// * @return *NetworkDeviceListResult
+func (s *NetworkDeviceService) GetNetworkDeviceByLocationByRange(locationID string, startIndex int32, recordsToReturn int32, scope string) (*NetworkDeviceListResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/location/{locationID}/{startIndex}/{recordsToReturn}"
 	path = strings.Replace(path, "{"+"locationID"+"}", fmt.Sprintf("%v", locationID), -1)
 	path = strings.Replace(path, "{"+"startIndex"+"}", fmt.Sprintf("%v", startIndex), -1)
 	path = strings.Replace(path, "{"+"recordsToReturn"+"}", fmt.Sprintf("%v", recordsToReturn), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceListResult)
@@ -481,19 +323,19 @@ func (s *NetworkDeviceService) GetNetworkDeviceByLocationByRange(locationID *str
 // GetNetworkDeviceByLocationID is ...
 // Gets list of network devices that are associated with the given location
 //
-//  * @param locationID Location ID
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceListResult
-func (s *NetworkDeviceService) GetNetworkDeviceByLocationID(locationID *string, scope string) (*NetworkDeviceListResult, *Response, error) {
+//
+// * @return *NetworkDeviceListResult
+func (s *NetworkDeviceService) GetNetworkDeviceByLocationID(locationID string, scope string) (*NetworkDeviceListResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/location/{locationID}"
 	path = strings.Replace(path, "{"+"locationID"+"}", fmt.Sprintf("%v", locationID), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceListResult)
@@ -508,19 +350,19 @@ func (s *NetworkDeviceService) GetNetworkDeviceByLocationID(locationID *string, 
 // GetNetworkDeviceBySerialNumber is ...
 // Gets the network device with the given serial number
 //
-//  * @param serialNumber Device serial number
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceResult
-func (s *NetworkDeviceService) GetNetworkDeviceBySerialNumber(serialNumber *string, scope string) (*NetworkDeviceResult, *Response, error) {
+//
+// * @return *NetworkDeviceResult
+func (s *NetworkDeviceService) GetNetworkDeviceBySerialNumber(serialNumber string, scope string) (*NetworkDeviceResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/serial-number/{serialNumber}"
 	path = strings.Replace(path, "{"+"serialNumber"+"}", fmt.Sprintf("%v", serialNumber), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceResult)
@@ -535,17 +377,18 @@ func (s *NetworkDeviceService) GetNetworkDeviceBySerialNumber(serialNumber *stri
 // GetNetworkDeviceCount is ...
 // Gets the count of network devices filtered by management IP address, mac address, hostname and location name
 //
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *CountResult
+//
+// * @return *CountResult
 func (s *NetworkDeviceService) GetNetworkDeviceCount(scope string) (*CountResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/count"
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(CountResult)
@@ -560,17 +403,18 @@ func (s *NetworkDeviceService) GetNetworkDeviceCount(scope string) (*CountResult
 // GetNetworkDeviceLocation is ...
 // Gets the list of network devices that has a location
 //
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceListResult
+//
+// * @return *NetworkDeviceListResult
 func (s *NetworkDeviceService) GetNetworkDeviceLocation(scope string) (*NetworkDeviceListResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/location"
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceListResult)
@@ -585,19 +429,19 @@ func (s *NetworkDeviceService) GetNetworkDeviceLocation(scope string) (*NetworkD
 // GetNetworkDeviceLocationByID is ...
 // Gets the location for the given device ID
 //
-//  * @param id Device ID
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceResult
-func (s *NetworkDeviceService) GetNetworkDeviceLocationByID(id *string, scope string) (*NetworkDeviceResult, *Response, error) {
+//
+// * @return *NetworkDeviceResult
+func (s *NetworkDeviceService) GetNetworkDeviceLocationByID(id string, scope string) (*NetworkDeviceResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/{id}/location"
 	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceResult)
@@ -612,21 +456,20 @@ func (s *NetworkDeviceService) GetNetworkDeviceLocationByID(id *string, scope st
 // GetNetworkDeviceLocationByRange is ...
 // Gets the location for the devices in the given range
 //
-//  * @param startIndex startIndex
-//  * @param recordsToReturn recordsToReturn
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceListResult
-func (s *NetworkDeviceService) GetNetworkDeviceLocationByRange(startIndex *int32, recordsToReturn *int32, scope string) (*NetworkDeviceListResult, *Response, error) {
+//
+// * @return *NetworkDeviceListResult
+func (s *NetworkDeviceService) GetNetworkDeviceLocationByRange(startIndex int32, recordsToReturn int32, scope string) (*NetworkDeviceListResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/location/{startIndex}/{recordsToReturn}"
 	path = strings.Replace(path, "{"+"startIndex"+"}", fmt.Sprintf("%v", startIndex), -1)
 	path = strings.Replace(path, "{"+"recordsToReturn"+"}", fmt.Sprintf("%v", recordsToReturn), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceListResult)
@@ -641,21 +484,20 @@ func (s *NetworkDeviceService) GetNetworkDeviceLocationByRange(startIndex *int32
 // GetNetworkDeviceRange is ...
 // Gets the list of network devices for the given range
 //
-//  * @param startIndex Start index
-//  * @param recordsToReturn Number of records to return
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkDeviceListResult
-func (s *NetworkDeviceService) GetNetworkDeviceRange(startIndex *int32, recordsToReturn *int32, scope string) (*NetworkDeviceListResult, *Response, error) {
+//
+// * @return *NetworkDeviceListResult
+func (s *NetworkDeviceService) GetNetworkDeviceRange(startIndex int32, recordsToReturn int32, scope string) (*NetworkDeviceListResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/{startIndex}/{recordsToReturn}"
 	path = strings.Replace(path, "{"+"startIndex"+"}", fmt.Sprintf("%v", startIndex), -1)
 	path = strings.Replace(path, "{"+"recordsToReturn"+"}", fmt.Sprintf("%v", recordsToReturn), -1)
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkDeviceListResult)
@@ -670,17 +512,18 @@ func (s *NetworkDeviceService) GetNetworkDeviceRange(startIndex *int32, recordsT
 // GetNetworkManagementInfo is ...
 // Gets the managment information of network devices and sites. Maximum allowed limit is 100.
 //
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *NetworkManagementInfoResult
+//
+// * @return *NetworkManagementInfoResult
 func (s *NetworkDeviceService) GetNetworkManagementInfo(scope string) (*NetworkManagementInfoResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/management-info"
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(NetworkManagementInfoResult)
@@ -695,17 +538,18 @@ func (s *NetworkDeviceService) GetNetworkManagementInfo(scope string) (*NetworkM
 // GetNetworkManagementInfoCount is ...
 // Gets the number of network devices or sites, whichever is maximum. This count is used to paginate and query the /network-device/management-info API
 //
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *CountResult
+//
+// * @return *CountResult
 func (s *NetworkDeviceService) GetNetworkManagementInfoCount(scope string) (*CountResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/management-info/count"
-
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(CountResult)
@@ -720,18 +564,18 @@ func (s *NetworkDeviceService) GetNetworkManagementInfoCount(scope string) (*Cou
 // UpdateNetworkDevice is ...
 // Updates the role of the device as access, core, distribution, border router
 //
+//
 //  * @param scope Authorization Scope for RBAC
 //  * @param networkDeviceBriefNIO networkDeviceBriefNIO
-//  * @return *TaskIDResult
-func (s *NetworkDeviceService) UpdateNetworkDevice(scope string, networkDeviceBriefNIO *NetworkDeviceBriefNio) (*TaskIDResult, *Response, error) {
+// * @return *TaskIDResult
+func (s *NetworkDeviceService) UpdateNetworkDevice(scope string, networkDeviceBriefNIO NetworkDeviceBriefNio) (*TaskIDResult, *Response, error) {
 
 	path := networkDeviceBasePath + "/network-device/brief"
-
-	req, err := s.client.NewRequest("Put", path, networkDeviceBriefNIO)
+	req, err := s.client.NewRequest("PUT", path, networkDeviceBriefNIO)
 	if err != nil {
 		return nil, nil, err
 	}
-	// header params "scope"
+
 	req.Header.Add("scope", scope)
 
 	root := new(TaskIDResult)

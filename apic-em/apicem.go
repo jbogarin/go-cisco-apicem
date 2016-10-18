@@ -42,11 +42,45 @@ type Client struct {
 	common service // Reuse a single struct instead of allocating one for each service on the heap
 
 	// Services used for communicating with the APIC-EM API
-	GlobalCredential *GlobalCredentialService
-	NetworkDevice    *NetworkDeviceService
-	Segment          *SegmentService
-	Ticket           *TicketService
-	Host             *HostService
+	AAA                   *AAAService
+	Alarm                 *AlarmService
+	Application           *ApplicationService
+	Audit                 *AuditService
+	Category              *CategoryService
+	CertificateManagement *CertificateManagementService
+	CiscoISE              *CiscoISEService
+	GlobalCredential      *GlobalCredentialService
+	Discovery             *DiscoveryService
+	// FileService           *FileServiceService
+	FlowAnalysis        *FlowAnalysisService
+	Host                *HostService
+	Interface           *InterfaceService
+	IPGeo               *IPGeoService
+	IPPool              *IPPoolService
+	License             *LicenseService
+	Location            *LocationService
+	Neighborhood        *NeighborhoodService
+	NetworkDevice       *NetworkDeviceService
+	NetworkDeviceConfig *NetworkDeviceConfigService
+	PKIBroker           *PKIBrokerService
+	Policy              *PolicyService
+	ReachabilityInfo    *ReachabilityInfoService
+	Relevance           *RelevanceService
+	Role                *RoleService
+	ScalableGroup       *ScalableGroupService
+	Scheduler           *SchedulerService
+	Segment             *SegmentService
+	Tag                 *TagService
+	Task                *TaskService
+	Ticket              *TicketService
+	Topology            *TopologyService
+	TopologyApplication *TopologyApplicationService
+	TopologyVLAN        *TopologyVLANService
+	User                *UserService
+	Contract            *ContractService
+	PolicyV2            *PolicyV2Service
+	VLAN                *VLANService
+	VRF                 *VRFService
 
 	// Optional function called after every successful request made to the Cisco Spark APIs
 	onRequestCompleted RequestCompletionCallback
@@ -126,11 +160,45 @@ func NewClient(httpClient *http.Client) *Client {
 
 	c := &Client{client: httpClient, BaseURL: baseURL, UserAgent: userAgent, Authorization: authorizationToken}
 	c.common.client = c
+	c.AAA = (*AAAService)(&c.common)
+	c.Alarm = (*AlarmService)(&c.common)
+	c.Application = (*ApplicationService)(&c.common)
+	c.Audit = (*AuditService)(&c.common)
+	c.Category = (*CategoryService)(&c.common)
+	c.CertificateManagement = (*CertificateManagementService)(&c.common)
+	c.CiscoISE = (*CiscoISEService)(&c.common)
 	c.GlobalCredential = (*GlobalCredentialService)(&c.common)
-	c.NetworkDevice = (*NetworkDeviceService)(&c.common)
-	c.Segment = (*SegmentService)(&c.common)
-	c.Ticket = (*TicketService)(&c.common)
+	c.Discovery = (*DiscoveryService)(&c.common)
+	// c.FileService = (*FileServiceService)(&c.common)
+	c.FlowAnalysis = (*FlowAnalysisService)(&c.common)
 	c.Host = (*HostService)(&c.common)
+	c.Interface = (*InterfaceService)(&c.common)
+	c.IPGeo = (*IPGeoService)(&c.common)
+	c.IPPool = (*IPPoolService)(&c.common)
+	c.License = (*LicenseService)(&c.common)
+	c.Location = (*LocationService)(&c.common)
+	c.Neighborhood = (*NeighborhoodService)(&c.common)
+	c.NetworkDevice = (*NetworkDeviceService)(&c.common)
+	c.NetworkDeviceConfig = (*NetworkDeviceConfigService)(&c.common)
+	c.PKIBroker = (*PKIBrokerService)(&c.common)
+	c.Policy = (*PolicyService)(&c.common)
+	c.ReachabilityInfo = (*ReachabilityInfoService)(&c.common)
+	c.Relevance = (*RelevanceService)(&c.common)
+	c.Role = (*RoleService)(&c.common)
+	c.ScalableGroup = (*ScalableGroupService)(&c.common)
+	c.Scheduler = (*SchedulerService)(&c.common)
+	c.Segment = (*SegmentService)(&c.common)
+	c.Tag = (*TagService)(&c.common)
+	c.Task = (*TaskService)(&c.common)
+	c.Ticket = (*TicketService)(&c.common)
+	c.Topology = (*TopologyService)(&c.common)
+	c.TopologyApplication = (*TopologyApplicationService)(&c.common)
+	c.TopologyVLAN = (*TopologyVLANService)(&c.common)
+	c.User = (*UserService)(&c.common)
+	c.Contract = (*ContractService)(&c.common)
+	c.PolicyV2 = (*PolicyV2Service)(&c.common)
+	c.VLAN = (*VLANService)(&c.common)
+	c.VRF = (*VRFService)(&c.common)
 	return c
 }
 

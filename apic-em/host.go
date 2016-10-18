@@ -12,7 +12,6 @@ type HostService service
 
 // HostDto is ...
 type HostDto struct {
-	ID                              string `json:"id,omitempty"`                              // ID
 	HostName                        string `json:"hostName,omitempty"`                        // Name of the host
 	Source                          string `json:"source,omitempty"`                          // Source from which the host gets collected. Available option:200 for inventory collection and 300 for trap based data collection
 	LastUpdated                     string `json:"lastUpdated,omitempty"`                     // Time when the host info last got updated
@@ -30,6 +29,7 @@ type HostDto struct {
 	ConnectedNetworkDeviceID        string `json:"connectedNetworkDeviceId,omitempty"`        // Id of the network device to which host gets connected
 	ConnectedNetworkDeviceIPAddress string `json:"connectedNetworkDeviceIpAddress,omitempty"` // Ip address of the network device to which host gets connected
 	AttributeInfo                   string `json:"attributeInfo,omitempty"`
+	ID                              string `json:"id,omitempty"`
 }
 
 // HostListResult is ...
@@ -47,14 +47,15 @@ type HostResult struct {
 // GetHostByID is ...
 // Get host by id
 //
-//  * @param id Host Id
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *HostResult
+//
+// * @return *HostResult
 func (s *HostService) GetHostByID(id string, scope string) (*HostResult, *Response, error) {
 
 	path := hostBasePath + "/host/{id}"
 	path = strings.Replace(path, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -73,12 +74,14 @@ func (s *HostService) GetHostByID(id string, scope string) (*HostResult, *Respon
 // GetHostCount is ...
 // Get host Count
 //
+//
 //  * @param scope Authorization Scope for RBAC
-//  * @return *CountResult
+//
+// * @return *CountResult
 func (s *HostService) GetHostCount(scope string) (*CountResult, *Response, error) {
 
 	path := hostBasePath + "/host/count"
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -111,8 +114,10 @@ type GetHostsQueryParams struct {
 // GetHosts is ...
 // Get Hosts
 //
+//  * @param queryParams
 //  * @param scope Authorization Scope for RBAC
-//  * @return *HostListResult
+//
+// * @return *HostListResult
 func (s *HostService) GetHosts(scope string, queryParams *GetHostsQueryParams) (*HostListResult, *Response, error) {
 
 	path := hostBasePath + "/host"
@@ -120,7 +125,7 @@ func (s *HostService) GetHosts(scope string, queryParams *GetHostsQueryParams) (
 	if err != nil {
 		return nil, nil, err
 	}
-	req, err := s.client.NewRequest("Get", path, nil)
+	req, err := s.client.NewRequest("GET", path, nil)
 	if err != nil {
 		return nil, nil, err
 	}
